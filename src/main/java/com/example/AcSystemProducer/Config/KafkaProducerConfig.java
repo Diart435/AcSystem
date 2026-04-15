@@ -1,6 +1,5 @@
 package com.example.AcSystemProducer.Config;
 
-import com.example.AcSystemProducer.DTO.CompanyKafkaDTO;
 import com.example.AcSystemProducer.JSON.KafkaJsonSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -18,19 +17,19 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
     @Bean
-    public ProducerFactory<String, CompanyKafkaDTO> producerFactory(ObjectMapper objectMapper){
+    public ProducerFactory<String, Object> producerFactory(ObjectMapper objectMapper){
         Map<String, Object> confProperties = new HashMap<>();
         confProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         confProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
-        DefaultKafkaProducerFactory<String, CompanyKafkaDTO> factory = new DefaultKafkaProducerFactory<>(confProperties);
+        DefaultKafkaProducerFactory<String, Object> factory = new DefaultKafkaProducerFactory<>(confProperties);
 
         factory.setValueSerializer(new KafkaJsonSerializer<>(objectMapper));
         return factory;
     }
 
     @Bean
-    public KafkaTemplate<String, CompanyKafkaDTO> kafkaTemplate(ProducerFactory<String, CompanyKafkaDTO> producerFactory){
+    public KafkaTemplate<String, Object> kafkaTemplate(ProducerFactory<String, Object> producerFactory){
         return new KafkaTemplate<>(producerFactory);
     }
 }

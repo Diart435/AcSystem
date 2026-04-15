@@ -1,5 +1,7 @@
 package com.example.AcSystemProducer.Service;
 
+import com.example.AcSystemProducer.DTO.CompanyKafkaDTO;
+import com.example.AcSystemProducer.DTO.Message;
 import com.example.AcSystemProducer.Entity.Company;
 import com.example.AcSystemProducer.Entity.User;
 import com.example.AcSystemProducer.Exception.CompanyAlreadyExistsException;
@@ -20,14 +22,15 @@ import java.util.Optional;
 @Slf4j
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final CompanyKafkaProducer companyKafkaProducer;
+    private final KafkaProducer kafkaProducer;
     private final CompanyMapper companyMapper;
     @Transactional
     public Company createCompany(String name, String phone){
         try {
             Company company = new Company(name, phone);
             log.info("company created");
-            companyKafkaProducer.sendCompanyToKafka(companyMapper.toKafkaCompany(company));
+            Message<CompanyKafkaDTO> message = new Message<>("companies", companyMapper.toKafkaCompany(company));
+            kafkaProducer.sendToKafka(message);
             return companyRepository.save(company);
         } catch (DataIntegrityViolationException e) {
             throw new CompanyAlreadyExistsException("Company already exists");
