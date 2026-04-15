@@ -1,4 +1,4 @@
-package com.example.AcSystemProducer.Kafka;
+package com.example.AcSystemProducer.Service;
 
 import com.example.AcSystemProducer.DTO.CompanyKafkaDTO;
 import lombok.extern.slf4j.Slf4j;

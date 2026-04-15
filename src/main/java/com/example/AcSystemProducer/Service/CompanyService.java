@@ -3,7 +3,6 @@ package com.example.AcSystemProducer.Service;
 import com.example.AcSystemProducer.Entity.Company;
 import com.example.AcSystemProducer.Entity.User;
 import com.example.AcSystemProducer.Exception.CompanyAlreadyExistsException;
-import com.example.AcSystemProducer.Kafka.CompanyKafkaProducer;
 import com.example.AcSystemProducer.Mapper.CompanyMapper;
 import com.example.AcSystemProducer.Repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;

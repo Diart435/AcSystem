@@ -1,4 +1,4 @@
-package com.example.AcSystemProducer.KafkaConfig;
+package com.example.AcSystemProducer.Config;
 
 import com.example.AcSystemProducer.DTO.CompanyKafkaDTO;
 import com.example.AcSystemProducer.JSON.KafkaJsonSerializer;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaConfig {
+public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, CompanyKafkaDTO> producerFactory(ObjectMapper objectMapper){
